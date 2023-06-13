@@ -7,11 +7,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-public class DesafioWebMvcConfigurer implements WebMvcConfigurer {
+public class PaginationConfiguration implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         PageableHandlerMethodArgumentResolver pageHandle = new PageableHandlerMethodArgumentResolver();
-        pageHandle.setFallbackPageable(PageRequest.of(0, 10));
+        pageHandle.setFallbackPageable(PageRequest.of(0, 20));
         resolvers.add(pageHandle);
     }
 }
