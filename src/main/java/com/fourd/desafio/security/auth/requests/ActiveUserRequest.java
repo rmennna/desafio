@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class ActiveUserRequest {
 
     @NotBlank(message = "login can not be null or empty")
     private String login;
-    @NotBlank(message = "password can not be null or empty")
-    private String password;
-
+    @NotBlank(message = "idProfessor can not be null or empty")
+    private String idProfessor;
 }

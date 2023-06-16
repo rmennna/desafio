@@ -1,13 +1,16 @@
 package com.fourd.desafio.security.auth.service;
 
+import com.fourd.desafio.enums.StatusUserEnum;
 import com.fourd.desafio.exception.BadRequestException;
 import com.fourd.desafio.repository.UserRepository;
 import com.fourd.desafio.security.JWTService;
+import com.fourd.desafio.security.auth.requests.ActiveUserRequest;
 import com.fourd.desafio.security.auth.requests.AuthenticationRequest;
 import com.fourd.desafio.security.auth.requests.RegisterRequest;
 import com.fourd.desafio.security.auth.response.AuthenticationResponse;
 import com.fourd.desafio.domain.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -31,21 +35,33 @@ public class AuthenticationService {
         var user = User.builder()
                 .login(register.getLogin())
                 .password(passwordEncoder.encode(register.getPassword()))
+                .idProfessor(null)
+                .status(StatusUserEnum.AGUARDANDO_APROVAÇÃO)
                 .build();
         this.userRepository.save(user);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest authentication) {
+        User user = userRepository.findByLogin(authentication.getLogin()).orElseThrow(() -> new BadRequestException("User not found!"));
+        if(user.getStatus().equals(StatusUserEnum.AGUARDANDO_APROVAÇÃO)) throw new BadRequestException("user is not activated");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authentication.getLogin(),
                         authentication.getPassword()
                 )
         );
-        var user = userRepository.findByLogin(authentication.getLogin()).orElseThrow(() -> new BadRequestException("User not found!"));
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public void active(ActiveUserRequest activeUserRequest) {
+        Optional<User> existLogin = userRepository.findByLogin(activeUserRequest.getLogin());
+        if(!existLogin.isPresent()) throw new BadRequestException("Login not found!");
+        User user = existLogin.get();
+        user.setIdProfessor(activeUserRequest.getIdProfessor());
+        user.setStatus(StatusUserEnum.APROVADO);
+        this.userRepository.save(user);
     }
 }

@@ -1,7 +1,10 @@
 package com.fourd.desafio.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fourd.desafio.enums.StatusUserEnum;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,10 +24,16 @@ public class User implements UserDetails {
 
     @Id
     private String id;
+
     private String login;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
     private String idProfessor;
+
+    @Enumerated(EnumType.STRING)
+    private StatusUserEnum status;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

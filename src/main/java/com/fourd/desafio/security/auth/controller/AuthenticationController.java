@@ -1,5 +1,6 @@
 package com.fourd.desafio.security.auth.controller;
 
+import com.fourd.desafio.security.auth.requests.ActiveUserRequest;
 import com.fourd.desafio.security.auth.requests.AuthenticationRequest;
 import com.fourd.desafio.security.auth.requests.RegisterRequest;
 import com.fourd.desafio.security.auth.response.AuthenticationResponse;
@@ -38,5 +39,12 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authentication) {
         log.info(("Authenticate auth Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         return ResponseEntity.ok(this.authenticationService.authenticate(authentication));
+    }
+
+    @PostMapping("/active")
+    public ResponseEntity<Void> active(@RequestBody ActiveUserRequest activeUserRequest) {
+        log.info(("Active auth Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
+        this.authenticationService.active(activeUserRequest);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

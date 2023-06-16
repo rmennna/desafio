@@ -1,6 +1,8 @@
 package com.fourd.desafio.controller;
 
+import com.fourd.desafio.domain.Aula;
 import com.fourd.desafio.domain.Professor;
+import com.fourd.desafio.domain.User;
 import com.fourd.desafio.requests.ProfessorPostRequestBody;
 import com.fourd.desafio.requests.ProfessorPutRequestBody;
 import com.fourd.desafio.service.ProfessorService;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +31,11 @@ public class ProfessorController {
     private final ProfessorService professorService;
     private final DateUtil dateUtil;
 
-//    @GetMapping("/aulas")
-//    public ResponseEntity<Page<Professor>> listAulasByProfessor(@AuthenticationPrincipal Principal principal) {
-//        principal.getName();
-//        return null;
-//    }
+    @GetMapping("/aulas")
+    public ResponseEntity<Page<Aula>> listAulasByProfessor(@CurrentSecurityContext(expression = "authentication")Authentication authentication, Pageable pageable) {
+        log.info(("Aulas Professor Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
+        return ResponseEntity.ok(this.professorService.listAulasByProfessor(authentication, pageable));
+    }
 
     @GetMapping("/list")
     public ResponseEntity<Page<Professor>> ListAll(Pageable pageable) {
