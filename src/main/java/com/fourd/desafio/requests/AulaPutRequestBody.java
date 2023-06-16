@@ -1,6 +1,5 @@
 package com.fourd.desafio.requests;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDateTime;
