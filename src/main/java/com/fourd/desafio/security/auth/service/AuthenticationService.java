@@ -23,7 +23,8 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final AuthenticationManager authenticationManager;
-    public AuthenticationResponse register(RegisterRequest register) {
+    
+    public void register(RegisterRequest register) {
         Optional<User> existLogin = userRepository.findByLogin(register.getLogin());
         if(existLogin.isPresent()) throw new BadRequestException("Login Already Exists");
 
@@ -32,10 +33,6 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(register.getPassword()))
                 .build();
         this.userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest authentication) {
