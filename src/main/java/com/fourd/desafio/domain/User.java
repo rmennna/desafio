@@ -24,6 +24,7 @@ public class User implements UserDetails {
     private String login;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    private String idProfessor;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

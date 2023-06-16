@@ -9,11 +9,14 @@ import java.util.Date;
 @Data
 public class AulaPostRequestBody {
 
-    @NotBlank(message = "o campo título não pode ser vazio")
+    @NotBlank(message = "titulo can not be null")
     private String titulo;
 
-    @NotBlank(message = "o campo descricao não pode ser vazio")
+    @NotBlank(message = "decricao can not be null")
     private String descricao;
 
     private LocalDateTime dataPrevista;
+
+    @NotBlank(message = "id professor can not be null")
+    private String idProfessor;
 }

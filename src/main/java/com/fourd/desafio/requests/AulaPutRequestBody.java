@@ -11,4 +11,5 @@ public class AulaPutRequestBody {
     private String titulo;
     private String descricao;
     private LocalDateTime dataPrevista;
+    private String idProfessor;
 }

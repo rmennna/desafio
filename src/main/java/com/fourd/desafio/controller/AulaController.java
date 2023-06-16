@@ -18,34 +18,34 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("aulas")
+@RequestMapping("/aula")
 @Log4j2
 @RequiredArgsConstructor
 public class AulaController {
 
     private final DateUtil dateUtil;
     private final AulaService aulaService;
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<Page<Aula>> save(Pageable pageable){
-        log.info(("FindAll Aula Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
+        log.info(("List Aula Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         return ResponseEntity.ok(this.aulaService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Aula> findById(@PathVariable String id){
-        log.info(("FindById Aula Method" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
+        log.info(("Find by id Aula Method" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         return ResponseEntity.ok(this.aulaService.findByIdOrThrowBaRequestException(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Aula> save(@RequestBody @Valid AulaPostRequestBody aulaPostRequestBody) {
-        log.info(("Save Aula Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
+    @PostMapping("/create")
+    public ResponseEntity<Aula> create(@RequestBody @Valid AulaPostRequestBody aulaPostRequestBody) {
+        log.info(("Create Aula Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         return new ResponseEntity<>(this.aulaService.save(aulaPostRequestBody), HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<Void> replace(@RequestBody AulaPutRequestBody aulaPutRequestBody){
-        log.info(("Put Aula Method" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
+        log.info(("Update Aula Method" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         this.aulaService.replace(aulaPutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

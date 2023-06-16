@@ -11,6 +11,6 @@ public abstract class AulaMapper {
 
     public static final AulaMapper INSTANCE = Mappers.getMapper(AulaMapper.class);
 
-    public abstract Aula toAula(AulaPostRequestBody animePostRequestBody);
+    public abstract Aula toAula(AulaPostRequestBody aulaPostRequestBody);
     public abstract Aula toAula(AulaPutRequestBody aulaPutRequestBody);
 }

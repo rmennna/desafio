@@ -7,23 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Aula {
+public class Professor {
 
     @Id
     private String id;
-
-    private String titulo;
-
-    private String descricao;
-
-    private LocalDateTime dataPrevista;
-
-    private String idProfessor;
+    private String nome;
 }
