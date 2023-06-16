@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +23,7 @@ public class Aula {
 
     private String descricao;
 
-    private LocalDateTime dataPrevista;
+    private Date dataPrevista;
 
     private String idProfessor;
 }
