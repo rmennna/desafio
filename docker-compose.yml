@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    healthcheck:
+      test: ["CMD","mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    container_name: mongo-database
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  springboot-app:
+    depends_on:
+      - mongodb
+    container_name: spring-app
+    image: springbooot-app
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"

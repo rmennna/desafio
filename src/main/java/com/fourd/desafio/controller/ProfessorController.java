@@ -7,6 +7,7 @@ import com.fourd.desafio.requests.ProfessorPostRequestBody;
 import com.fourd.desafio.requests.ProfessorPutRequestBody;
 import com.fourd.desafio.service.ProfessorService;
 import com.fourd.desafio.util.DateUtil;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -44,12 +45,14 @@ public class ProfessorController {
     }
 
     @PostMapping("/create")
+    @Transactional
     public ResponseEntity<Professor> create(@RequestBody @Valid ProfessorPostRequestBody request){
         log.info(("Create Professor Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         return new ResponseEntity<>(this.professorService.create(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
+    @Transactional
     public ResponseEntity<Professor> update(@RequestBody @Valid ProfessorPutRequestBody request) {
         log.info(("Update Professor Method" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         return new ResponseEntity<>(this.professorService.update(request), HttpStatus.OK);

@@ -5,6 +5,7 @@ import com.fourd.desafio.requests.AulaPostRequestBody;
 import com.fourd.desafio.requests.AulaPutRequestBody;
 import com.fourd.desafio.service.AulaService;
 import com.fourd.desafio.util.DateUtil;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -38,12 +39,14 @@ public class AulaController {
     }
 
     @PostMapping("/create")
+    @Transactional
     public ResponseEntity<Aula> create(@RequestBody @Valid AulaPostRequestBody aulaPostRequestBody) {
         log.info(("Create Aula Method " + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         return new ResponseEntity<>(this.aulaService.save(aulaPostRequestBody), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
+    @Transactional
     public ResponseEntity<Void> replace(@RequestBody AulaPutRequestBody aulaPutRequestBody){
         log.info(("Update Aula Method" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())));
         this.aulaService.replace(aulaPutRequestBody);

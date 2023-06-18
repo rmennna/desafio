@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      user: root
+      password: example
+      uri: mongodb://localhost:27017/fourd
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+jwt:
+  secret: ec48c3300ab911eebe560242ac120002a16sda5sd1as5d1a9d1as9d1asdaas1da1sdas1da6sd1a8sd7A8ds1as1d6as1d9a1
