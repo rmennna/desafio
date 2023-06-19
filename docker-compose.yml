@@ -5,7 +5,7 @@ services:
     image: mongo:latest
     restart: always
     healthcheck:
-      test: ["CMD","mongo", "--eval", "db.adminCommand('ping')"]
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 10s
       retries: 5
@@ -18,10 +18,11 @@ services:
 
   springboot-app:
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
     container_name: spring-app
     image: springbooot-app
-    restart: always
+    restart: on-failure
     build: .
     ports:
       - "8080:8080"
