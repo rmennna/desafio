@@ -1,5 +1,7 @@
 # desafio
 
+no arquivo CorsConfiguration deixei setado o http://localhost:3000 como origem.
+
 database: fourd <br />
 
 fazer o insert do usuário admin no banco: <br />
