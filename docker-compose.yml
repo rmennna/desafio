@@ -1,27 +1,37 @@
 version: "3.4"
 
+networks:
+  production-network:
+    driver:
+      bridge
+
 services:
-  mongodb:
-    image: mongo:latest
-    restart: always
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    container_name: mongo-database
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+#  mongodb:
+#    image: mongo:latest
+#    restart: always
+#    networks:
+#      - production-network
+#    healthcheck:
+#      test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 3
+#      start_period: 5s
+#    container_name: mongo-database
+#    ports:
+#      - "27017:27017"
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: example
 
   springboot-app:
-    depends_on:
-      mongodb:
-        condition: service_healthy
-    container_name: spring-app
+#    depends_on:
+#      mongodb:
+#        condition: service_healthy
+#    networks:
+#      - production-network
     image: springbooot-app
+    container_name: spring-app
     restart: on-failure
     build: .
     ports:

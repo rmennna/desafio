@@ -6,7 +6,10 @@ spring:
     mongodb:
       user: root
       password: example
-      uri: mongodb://localhost:27017/fourd
+      database: fourd
+      port: 27017
+      host: 127.0.0.1
+      authentication-database: admin
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
