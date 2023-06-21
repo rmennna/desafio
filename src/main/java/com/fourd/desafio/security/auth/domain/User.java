@@ -1,15 +1,12 @@
 package com.fourd.desafio.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fourd.desafio.enums.StatusUserEnum;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,7 +16,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Document
 public class User implements UserDetails {
 
     @Id
@@ -32,8 +29,7 @@ public class User implements UserDetails {
 
     private String idProfessor;
 
-    @Enumerated(EnumType.STRING)
-    private StatusUserEnum status;
+    private String status;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
