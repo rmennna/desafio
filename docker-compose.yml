@@ -6,32 +6,32 @@ networks:
       bridge
 
 services:
-#  mongodb:
-#    image: mongo:latest
-#    restart: always
-#    networks:
-#      - production-network
-#    healthcheck:
-#      test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 3
-#      start_period: 5s
-#    container_name: mongo-database
-#    ports:
-#      - "27017:27017"
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: example
+  mongodb:
+    image: mongo:latest
+    restart: always
+    networks:
+      - production-network
+    healthcheck:
+      test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    container_name: mongo-database
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
 
   springboot-app:
-#    depends_on:
-#      mongodb:
-#        condition: service_healthy
-#    networks:
-#      - production-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - production-network
     image: springbooot-app
-    container_name: spring-app
+    container_name: spring
     restart: on-failure
     build: .
     ports:

@@ -2,17 +2,9 @@
 
 no arquivo CorsConfiguration deixei setado o http://localhost:3000 como origem.
 
-database: fourd <br />
-
-fazer o insert do usuário admin no banco: <br />
-
-db.getSiblingDB("fourd").getCollection("user").insert({
-    login: "admin",
-    password: "$2a$10$fkGrnu66fhdOl.TIMTnRJOCfYX3bzHJX6i7dEITbY.nkHZdfNlfPm",
-    status: "APROVADO"
-});
-
-login:admin senha: admin
+#usuario administrador <br />
+&ensp;&ensp;login:admin <br />
+&ensp;&ensp;senha: admin
 
 com o usuário admin, você pode criar aulas e professores.
 
