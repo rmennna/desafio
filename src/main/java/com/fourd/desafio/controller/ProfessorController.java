@@ -2,12 +2,10 @@ package com.fourd.desafio.controller;
 
 import com.fourd.desafio.domain.Aula;
 import com.fourd.desafio.domain.Professor;
-import com.fourd.desafio.domain.User;
 import com.fourd.desafio.requests.ProfessorPostRequestBody;
 import com.fourd.desafio.requests.ProfessorPutRequestBody;
 import com.fourd.desafio.service.ProfessorService;
 import com.fourd.desafio.util.DateUtil;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,11 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 
 @Log4j2

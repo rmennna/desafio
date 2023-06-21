@@ -5,7 +5,6 @@ import com.fourd.desafio.requests.AulaPostRequestBody;
 import com.fourd.desafio.requests.AulaPutRequestBody;
 import com.fourd.desafio.service.AulaService;
 import com.fourd.desafio.util.DateUtil;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -13,10 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequestMapping("/aula")

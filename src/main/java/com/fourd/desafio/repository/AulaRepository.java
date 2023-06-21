@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface AulaRepository extends MongoRepository<Aula, String> {
-    Page<Aula> findByIdProfessor(String idProfessor, Pageable pageable);
+    Page<Aula> findAulasByIdProfessor(String idProfessor, Pageable pageable);
 }

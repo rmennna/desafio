@@ -1,4 +1,4 @@
-package com.fourd.desafio.domain;
+package com.fourd.desafio.security.auth.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
