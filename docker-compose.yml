@@ -9,8 +9,6 @@ services:
   mongodb:
     image: mongo:latest
     restart: always
-    networks:
-      - production-network
     healthcheck:
       test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 5s
@@ -21,18 +19,22 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    networks:
+      - production-network
 
   springboot-app:
     depends_on:
       mongodb:
         condition: service_healthy
-    networks:
-      - production-network
-    image: springbooot-app
+    image: springboot-app
     container_name: spring
     restart: on-failure
     build: .
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://admin:123456@localhost:27017/fourd?authSource=admin
+    networks:
+      - production-network
